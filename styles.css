@@ -1,11 +1,17 @@
 :root {
-  --ink: #2b2b2b;
-  --muted: #6b6b6b;
-  --line: #b5b5b5;
-  --line-soft: #dcdcdc;
-  --bg: #ffffff;
-  --bg-alt: #f2f2f2;
-  --bg-dark: #2b2b2b;
+  --ink: #3B2E26;
+  --muted: #6E6255;
+  --line: #C9BCA9;
+  --line-soft: #E3DACC;
+  --bg: #FBF7F2;
+  --bg-alt: #F0E9E0;
+  --bg-dark: #3B2E26;
+  --card: #ffffff;
+  --primary: #B85C38;
+  --primary-deep: #A64F2E;
+  --primary-soft: #F3DFD2;
+  --accent: #6F8F6B;
+  --accent-deep: #4F6B4B;
   --container: 1040px;
 }
 
@@ -86,7 +92,7 @@ p.lead {
   font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--primary-deep);
   margin-bottom: 4px;
 }
 
@@ -94,13 +100,14 @@ p.lead {
   font-size: 19px;
   font-weight: 700;
   text-align: center;
+  color: var(--primary);
   margin: 24px 0 0;
 }
 
 /* ---------- nav ---------- */
 
 .site-header {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--line-soft);
   background: var(--bg);
 }
 
@@ -118,9 +125,9 @@ p.lead {
   font-size: 22px;
   font-weight: 800;
   letter-spacing: 0.12em;
-  color: var(--ink);
+  color: var(--primary);
   text-decoration: none;
-  border: 1px solid var(--line);
+  border: 1px solid var(--primary);
   padding: 2px 10px;
 }
 
@@ -139,7 +146,7 @@ p.lead {
 }
 
 .site-nav a:hover {
-  border-bottom-color: var(--ink);
+  border-bottom-color: var(--primary);
 }
 
 /* ---------- buttons ---------- */
@@ -218,8 +225,8 @@ p.lead {
 }
 
 .card {
-  border: 1px solid var(--line);
-  background: var(--bg);
+  border: 1px solid var(--line-soft);
+  background: var(--card);
   padding: 18px;
 }
 
@@ -237,6 +244,10 @@ p.lead {
   padding-top: 24px;
 }
 
+.card--flow {
+  border-top: 3px solid var(--accent);
+}
+
 /* Pilar mellan stegen: → horisontellt, ↓ när stegen staplas */
 .card--step:not(:last-child)::after {
   content: "→";
@@ -244,7 +255,7 @@ p.lead {
   top: 50%;
   right: 0;
   transform: translate(calc(50% + 13px), -50%);
-  color: var(--muted);
+  color: var(--primary);
   font-size: 18px;
   font-weight: 700;
   line-height: 1;
@@ -271,7 +282,8 @@ p.lead {
   line-height: 30px;
   text-align: center;
   font-weight: 700;
-  border: 1px solid var(--ink);
+  background: var(--accent-deep);
+  color: #fff;
   border-radius: 50%;
   margin-bottom: 10px;
 }
@@ -325,7 +337,7 @@ p.lead {
 
 .site-footer {
   background: var(--bg-dark);
-  color: #eee;
+  color: #ede4d8;
   padding: 28px 0;
 }
 
@@ -338,21 +350,21 @@ p.lead {
 }
 
 .site-footer .logo {
-  color: #fff;
-  border-color: #777;
+  color: #f7f1e8;
+  border-color: #7a6a58;
 }
 
 .site-footer .site-nav a {
-  color: #ddd;
+  color: #e3d7c6;
 }
 
 .site-footer .site-nav a:hover {
-  border-bottom-color: #fff;
+  border-bottom-color: #efc9b4;
 }
 
 .footer-note {
   font-size: 12px;
-  color: #999;
+  color: #a99c8b;
   margin: 0;
 }
 
@@ -406,12 +418,12 @@ p.lead {
 }
 
 .split-tab:hover {
-  color: var(--ink);
+  color: var(--primary-deep);
 }
 
 .split-tab.is-active {
   color: var(--ink);
-  border-left-color: var(--ink);
+  border-left-color: var(--primary);
   background: var(--bg-alt);
 }
 
@@ -447,7 +459,7 @@ p.lead {
 
 .loader-bar {
   height: 100%;
-  background: var(--ink);
+  background: var(--primary);
   transform-origin: left center;
   transform: scaleX(0);
 }
@@ -458,3 +470,15 @@ p.lead {
   }
 }
 
+
+/* ---------- color accents ---------- */
+
+::selection {
+  background: var(--primary-soft);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
