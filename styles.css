@@ -107,8 +107,13 @@ p.lead {
 /* ---------- nav ---------- */
 
 .site-header {
-  border-bottom: 1px solid var(--line-soft);
-  background: var(--bg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: transparent;
+  border-bottom: 1px solid transparent;
 }
 
 .header-inner {
@@ -197,6 +202,73 @@ p.lead {
 .ph--wide {
   margin-top: 28px;
   padding: 90px 16px;
+}
+
+/* ---------- hero ---------- */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  background-color: #ddd3c6;
+  background-image: url("images/hero-moving-van.jpg");
+  background-image: image-set(
+    url("images/hero-moving-van.webp") type("image/webp"),
+    url("images/hero-moving-van.jpg") type("image/jpeg")
+  );
+  background-size: cover;
+  background-position: center 55%;
+  padding-top: 150px;
+  padding-bottom: 80px;
+  min-height: 540px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(251, 247, 242, 0.85) 0%, rgba(251, 247, 242, 0) 32%),
+    linear-gradient(100deg, rgba(251, 247, 242, 0.96) 0%, rgba(251, 247, 242, 0.88) 36%, rgba(251, 247, 242, 0.45) 62%, rgba(251, 247, 242, 0.08) 100%);
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 190px;
+    min-height: 0;
+  }
+}
+
+/* ---------- om oss ---------- */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr minmax(240px, 320px);
+  gap: 32px 48px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.about-text > :first-child {
+  margin-top: 0;
+}
+
+.about-images {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ph--about {
+  margin: 0;
+  padding: 70px 16px;
+}
+
+@media (max-width: 800px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
 }
 
 /* ---------- grids and cards ---------- */
@@ -475,6 +547,18 @@ p.lead {
   font-size: 12px;
   color: #a99c8b;
   margin: 0;
+}
+
+.footer-note a {
+  font-family: "Segoe Script", "Bradley Hand", "Snell Roundhand", "Apple Chancery", cursive;
+  font-size: 1.15em;
+  color: #e3d7c6;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-note a:hover {
+  color: #efc9b4;
 }
 
 /* ---------- different screens ---------- */
