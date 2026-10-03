@@ -93,3 +93,55 @@
   startBar();
   cycleTimer = setTimeout(advance, INTERVAL);
 })();
+
+/* ---------- kontaktformulär ---------- */
+(function () {
+  "use strict";
+
+  var form = document.getElementById("kontakt-form");
+  if (!form || !window.fetch) return;
+
+  var submitBtn = form.querySelector(".contact-form__submit");
+  var status = form.querySelector(".contact-form__status");
+  var defaultBtnText = submitBtn ? submitBtn.textContent : "";
+
+  function setStatus(message, kind) {
+    if (!status) return;
+    status.textContent = message;
+    status.classList.remove("is-ok", "is-error");
+    if (kind) status.classList.add(kind);
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Skickar...";
+    }
+    setStatus("", null);
+
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(Object.fromEntries(new FormData(form)))
+    }).then(function (response) {
+      return response.json().then(function (data) {
+        return { ok: response.ok && data.success, data: data };
+      });
+    }).then(function (result) {
+      if (result.ok) {
+        form.reset();
+        setStatus("Tack! Ditt meddelande är skickat – vi hör av oss snart.", "is-ok");
+      } else {
+        setStatus("Något gick fel. Försök igen eller mejla oss direkt.", "is-error");
+      }
+    }).catch(function () {
+      setStatus("Något gick fel. Försök igen eller mejla oss direkt.", "is-error");
+    }).finally(function () {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = defaultBtnText;
+      }
+    });
+  });
+})();
