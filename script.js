@@ -133,7 +133,10 @@
         form.reset();
         setStatus("Tack! Ditt meddelande är skickat – vi hör av oss snart.", "is-ok");
       } else {
-        setStatus("Något gick fel. Försök igen eller mejla oss direkt.", "is-error");
+        console.error("web3forms error:", result.data);
+        setStatus(result.data && result.data.message
+          ? "Något gick fel: " + result.data.message
+          : "Något gick fel. Försök igen eller mejla oss direkt.", "is-error");
       }
     }).catch(function () {
       setStatus("Något gick fel. Försök igen eller mejla oss direkt.", "is-error");
