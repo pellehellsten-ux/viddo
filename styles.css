@@ -243,7 +243,7 @@ p.lead {
 
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr minmax(240px, 320px);
+  grid-template-columns: 1fr minmax(200px, 240px);
   gap: 32px 48px;
   align-items: center;
   margin-top: 12px;
@@ -256,12 +256,25 @@ p.lead {
 .about-images {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 16px;
 }
 
-.ph--about {
-  margin: 0;
-  padding: 70px 16px;
+.about-photo {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 52% 20%;
+  border: 1px solid var(--line-soft);
+  background: var(--bg-alt);
+}
+
+.about-signature {
+  font-style: italic;
+  color: var(--muted);
+  margin-top: 4px;
 }
 
 @media (max-width: 800px) {
@@ -512,6 +525,132 @@ p.lead {
   margin: 8px 0 0;
   font-size: 12px;
   color: var(--muted);
+}
+
+/* ---------- mobil boka-CTA + modal ---------- */
+
+.mobile-cta {
+  display: none;
+}
+
+.mobile-cta__btn {
+  display: block;
+  width: 100%;
+  padding: 15px 18px;
+  border: 0;
+  background: var(--primary);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mobile-cta__btn:hover {
+  background: var(--primary-deep);
+}
+
+@media (max-width: 640px) {
+  .mobile-cta {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    background: var(--bg-dark);
+    box-shadow: 0 -4px 16px rgba(59, 46, 38, 0.25);
+    transform: translateY(110%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
+  }
+
+  .mobile-cta.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Plats så att sidfoten inte döljs bakom den fasta listen */
+  body {
+    padding-bottom: 84px;
+  }
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  height: 100vh;
+  height: 100dvh;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--card);
+  color: var(--ink);
+}
+
+.modal::backdrop {
+  background: rgba(59, 46, 38, 0.55);
+}
+
+.modal__inner {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  overflow-y: auto;
+  padding: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal__head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px 14px;
+  background: var(--card);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.modal__head h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.modal__content {
+  padding: 14px 20px calc(28px + env(safe-area-inset-bottom));
+}
+
+.modal__close {
+  flex: none;
+  padding: 2px 8px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal__close:hover {
+  color: var(--ink);
+}
+
+.modal .contact-form {
+  max-width: none;
+  margin: 16px 0 0;
+}
+
+body.modal-open {
+  overflow: hidden;
 }
 
 /* ---------- footer ---------- */

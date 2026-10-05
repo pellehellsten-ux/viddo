@@ -98,53 +98,168 @@
 (function () {
   "use strict";
 
-  var form = document.getElementById("kontakt-form");
-  if (!form || !window.fetch) return;
+  function setupContactForm(form) {
+    if (!form || form.dataset.ready === "1" || !window.fetch) return;
+    form.dataset.ready = "1";
 
-  var submitBtn = form.querySelector(".contact-form__submit");
-  var status = form.querySelector(".contact-form__status");
-  var defaultBtnText = submitBtn ? submitBtn.textContent : "";
+    var submitBtn = form.querySelector(".contact-form__submit");
+    var status = form.querySelector(".contact-form__status");
+    var defaultBtnText = submitBtn ? submitBtn.textContent : "";
 
-  function setStatus(message, kind) {
-    if (!status) return;
-    status.textContent = message;
-    status.classList.remove("is-ok", "is-error");
-    if (kind) status.classList.add(kind);
+    function setStatus(message, kind) {
+      if (!status) return;
+      status.textContent = message;
+      status.classList.remove("is-ok", "is-error");
+      if (kind) status.classList.add(kind);
+    }
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Skickar...";
+      }
+      setStatus("", null);
+
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+      }).then(function (response) {
+        return response.json().then(function (data) {
+          return { ok: response.ok && data.success, data: data };
+        });
+      }).then(function (result) {
+        if (result.ok) {
+          form.reset();
+          setStatus("Tack! Ditt meddelande är skickat – vi hör av oss snart.", "is-ok");
+        } else {
+          console.error("web3forms error:", result.data);
+          setStatus(result.data && result.data.message
+            ? "Något gick fel: " + result.data.message
+            : "Något gick fel. Försök igen eller mejla oss direkt.", "is-error");
+        }
+      }).catch(function () {
+        setStatus("Något gick fel. Försök igen eller mejla oss direkt.", "is-error");
+      }).finally(function () {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = defaultBtnText;
+        }
+      });
+    });
   }
 
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Skickar...";
-    }
-    setStatus("", null);
+  Array.prototype.forEach.call(document.querySelectorAll(".contact-form"), setupContactForm);
+  window.viddoSetupContactForm = setupContactForm;
+})();
 
-    fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify(Object.fromEntries(new FormData(form)))
-    }).then(function (response) {
-      return response.json().then(function (data) {
-        return { ok: response.ok && data.success, data: data };
-      });
-    }).then(function (result) {
-      if (result.ok) {
-        form.reset();
-        setStatus("Tack! Ditt meddelande är skickat – vi hör av oss snart.", "is-ok");
-      } else {
-        console.error("web3forms error:", result.data);
-        setStatus(result.data && result.data.message
-          ? "Något gick fel: " + result.data.message
-          : "Något gick fel. Försök igen eller mejla oss direkt.", "is-error");
-      }
-    }).catch(function () {
-      setStatus("Något gick fel. Försök igen eller mejla oss direkt.", "is-error");
-    }).finally(function () {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = defaultBtnText;
-      }
+/* ---------- mobil boka-knapp + modal ---------- */
+(function () {
+  "use strict";
+
+  var openBtn = document.getElementById("mobile-boka");
+  var modal = document.getElementById("boka-modal");
+  var closeBtn = document.getElementById("boka-modal-close");
+  var slot = document.getElementById("boka-modal-form");
+  var sourceForm = document.getElementById("kontakt-form");
+
+  if (!openBtn || !modal || !slot || !sourceForm) return;
+
+  // Fallback för äldre webbläsare utan <dialog>: skrolla till kontaktsektionen
+  if (typeof modal.showModal !== "function") {
+    openBtn.addEventListener("click", function () {
+      var target = document.getElementById("kontakt");
+      if (target) target.scrollIntoView({ behavior: "smooth" });
     });
+    return;
+  }
+
+  var formReady = false;
+
+  function cloneFormIntoModal() {
+    if (formReady) return;
+    formReady = true;
+
+    var clone = sourceForm.cloneNode(true);
+    clone.removeAttribute("id");
+    clone.removeAttribute("data-ready");
+    clone.classList.add("contact-form--modal");
+
+    // Unika id:n i modalen så att etiketter pekar rätt fält
+    Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (el) {
+      el.id = el.id + "-modal";
+    });
+    Array.prototype.forEach.call(clone.querySelectorAll("label[for]"), function (label) {
+      label.setAttribute("for", label.getAttribute("for") + "-modal");
+    });
+
+    // Nollställ eventuellt tillstånd från originalformuläret
+    if (typeof clone.reset === "function") clone.reset();
+    var btn = clone.querySelector(".contact-form__submit");
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "Skicka förfrågan";
+    }
+    var st = clone.querySelector(".contact-form__status");
+    if (st) {
+      st.textContent = "";
+      st.classList.remove("is-ok", "is-error");
+    }
+
+    slot.appendChild(clone);
+    if (window.viddoSetupContactForm) window.viddoSetupContactForm(clone);
+  }
+
+  function openModal() {
+    cloneFormIntoModal();
+    modal.showModal();
+    document.body.classList.add("modal-open");
+  }
+
+  openBtn.addEventListener("click", openModal);
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", function () {
+      modal.close();
+    });
+  }
+
+  // Stäng när man klickar på den mörka bakgrunden
+  modal.addEventListener("click", function (event) {
+    if (event.target === modal) modal.close();
   });
+
+  modal.addEventListener("close", function () {
+    document.body.classList.remove("modal-open");
+  });
+})();
+
+/* ---------- mobil CTA: visa efter start, dölj vid kontakt ---------- */
+(function () {
+  "use strict";
+
+  var bar = document.querySelector(".mobile-cta");
+  var start = document.getElementById("start");
+  var contact = document.getElementById("kontakt");
+  if (!bar || !start || !contact) return;
+
+  var ticking = false;
+
+  function update() {
+    ticking = false;
+    var pastStart = start.getBoundingClientRect().bottom <= 0;
+    var reachedContact = contact.getBoundingClientRect().top <= window.innerHeight;
+    bar.classList.toggle("is-visible", pastStart && !reachedContact);
+  }
+
+  function requestUpdate() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(update);
+  }
+
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+  window.addEventListener("resize", requestUpdate);
+  update();
 })();

@@ -245,21 +245,14 @@
         <div class="about-grid">
           <div class="about-text">
             <h2>Om VIDDO</h2>
-            <p>VIDDO föddes ur ett intresse för design, kvalitet och andrahandsmarknaden – och en frustration över hur mycket fullt fungerande saker som slängs.</p>
-            <p>Vi såg samma problem om och om igen: människor har saker med ett värde men saknar tiden, kunskapen, transportmöjlighet eller viljan att själva ta hand om försäljningen.</p>
-            <p>Samtidigt finns andra människor som söker efter just dessa produkter. VIDDO vill skapa länken mellan dem.</p>
-            <p>Vi kombinerar kunskap om andrahandsmarknaden med hämtning, logistik och återbruk för att skapa en tjänst som gör det enklare att välja återbruk framför avfall.</p>
-
-            <h2>Vår vision</h2>
-            <p>Vi vill göra det lika enkelt att återbruka som att beställa en taxi eller matleverans.</p>
-            <p>På sikt ska VIDDO utvecklas till en digital återbruksplattform där kunden kan boka hämtning, ladda upp bilder, få värdering, följa sitt uppdrag och ta del av eventuell försäljning.</p>
-            <p>Genom digital teknik, smart logistik och AI vill vi effektivisera processen och på sikt skapa ett rikstäckande nätverk för återbruk.</p>
-            <p>Vår vision är ett samhälle där återbruk är det självklara förstahandsvalet.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            <p class="about-signature">- Pelle, VD</p>
           </div>
 
           <div class="about-images">
-            <div class="ph ph--about">image of Pelle</div>
-            <div class="ph ph--about">vehicle image</div>
+            <img class="about-photo" src="images/pelle-face.jpeg" alt="Pelle, grundare av VIDDO" width="778" height="868">
           </div>
         </div>
       </div>
@@ -319,6 +312,27 @@
       <p class="footer-note">Designed in GBG by <a href="https://ds-hem.pages.dev/" target="_blank" rel="noopener">Sangeeth GR</a></p>
     </div>
   </footer>
+
+  <!-- Mobil CTA: boka (visas endast i mobil) -->
+  <div class="mobile-cta">
+    <button type="button" class="mobile-cta__btn" id="mobile-boka" aria-haspopup="dialog" aria-controls="boka-modal">
+      Boka en kostnadsfri bedömning
+    </button>
+  </div>
+
+  <!-- Modal med samma kontaktformulär som i Kontakta oss -->
+  <dialog class="modal" id="boka-modal" aria-labelledby="boka-modal-title">
+    <div class="modal__inner">
+      <div class="modal__head">
+        <h2 id="boka-modal-title">Boka en kostnadsfri bedömning</h2>
+        <button type="button" class="modal__close" id="boka-modal-close" aria-label="Stäng">&times;</button>
+      </div>
+      <div class="modal__content">
+        <p>Berätta i formuläret nedan vad du vill bli av med, så återkommer vi med en bedömning.</p>
+        <div id="boka-modal-form"></div>
+      </div>
+    </div>
+  </dialog>
 
   <script src="script.js"></script>
 </body>
