@@ -10,10 +10,7 @@ This file contains **all the text shown on the website**. You can rewrite it fre
 ### Rules
 - **Do not change or delete the lines that start with `#` or `---`.** They are labels that tell us where each text belongs. Only edit the normal lines underneath them.
 - Keep the blank lines between blocks.
-- `**Bold text**` stays bold on the site.
-- Text written as `[like this](mailto:…)` is a clickable link — you may change the words, but keep the `(address)` part.
-- Buttons should stay short so they fit on one line.
-- Write in Swedish.
+- `**Bold text**` for bold text.
 
 ---
 
@@ -256,12 +253,6 @@ Berätta vad du vill bli av med. Vi kommer kontakta dig så snart som möjgligt.
 Skicka förfrågan
 
 Dina uppgifter används endast för att besvara din förfrågan.
-
----
-
-# 8. Footer
-
-Designed in GBG by [Sangeeth GR](https://ds-hem.pages.dev/)
 
 ---
 
