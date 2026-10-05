@@ -50,7 +50,7 @@ Skicka bilder för värdering
 
 # 2. Intro
 
-Du behöver inte sortera. Vi tar allt.
+Du behöver inte sortera. Vi tar allt. Helt utan kostnad.
 
 Designmöbler, elektronik och porslin kan stå bredvid trasiga stolar, gamla pärmar och kartonger.
 
@@ -86,7 +86,7 @@ Du blir av med allt utan att betala någonting för hämtningen.
 
 Vid behov så grovstädar vi lokalen efter hämtning.
 
-Du får del av försäljningen
+Vi hämtar utan kostnad och du får del av försäljningen
 
 Finns det föremål med ett större ekonomiskt värde kan vi komma överens om att sälja dem åt dig.
 
@@ -160,7 +160,7 @@ Företaget
 
 Varför välja VIDDO?
 
-Vi hämtar inte bara dina saker. Vi tar ansvar för vad som händer med dem och ger dem ett värde.
+Vi hämtar inte bara dina saker helt utan kostnad och vi tar ansvar för vad som händer med dem.
 
 En vanlig transport- eller bortforslingstjänst löser framför allt själva transporten. **VIDDO löser hela problemet.**
 
@@ -175,8 +175,6 @@ Du slipper fotografera och annonsera.
 Du slipper svara på meddelanden och träffa köpare.
 
 Du slipper transportera till återvinningen.
-
-Samtidigt tar vi tillvara på det ekonomiska värde som annars riskerar att gå förlorat.
 
 Bra för dig. Bättre för det vi redan har.
 
@@ -224,9 +222,7 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
 
-- Pelle, VD
-
-Pelle, grundare av VIDDO
+- Pelle, grundare av VIDDO
 
 ---
 
